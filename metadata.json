@@ -1,0 +1,5 @@
+{
+  "name": "Neon Pomodoro",
+  "description": "A visually stunning, neon-themed Pomodoro timer designed for focus. It runs entirely in your browser, works offline, and tracks your productivity with beautiful charts, all without needing any installation or login.",
+  "requestFramePermissions": []
+}
