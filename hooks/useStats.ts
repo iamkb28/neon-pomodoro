@@ -23,7 +23,7 @@ export const useStats = () => {
     }
   }, []);
 
-  const addCompletedPomodoro = useCallback(() => {
+  const addFocusMinute = useCallback(() => {
     const today = getTodayDateString();
     setStats(prevStats => {
       const newStats = {
@@ -48,18 +48,18 @@ export const useStats = () => {
       const dateString = date.toISOString().split('T')[0];
       const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
       
-      const pomodoros = stats[dateString] || 0;
+      const minutes = stats[dateString] || 0;
       data.push({
         day: dayName,
-        minutes: pomodoros * 30,
+        minutes: minutes,
       });
     }
     return data;
   };
 
-  const todayMinutes = (stats[getTodayDateString()] || 0) * 30;
+  const todayMinutes = (stats[getTodayDateString()] || 0);
   const weeklyChartData = getWeeklyChartData();
   const weeklyTotalMinutes = weeklyChartData.reduce((sum, day) => sum + day.minutes, 0);
 
-  return { addCompletedPomodoro, todayMinutes, weeklyTotalMinutes, weeklyChartData };
+  return { addFocusMinute, todayMinutes, weeklyTotalMinutes, weeklyChartData };
 };
