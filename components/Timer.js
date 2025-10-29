@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTimer } from '../hooks/useTimer.js';
 import { Button } from './Button.js';
@@ -9,9 +10,14 @@ const formatTime = (seconds) => {
   return `${mins}:${secs}`;
 };
 
-export const Timer = ({ onComplete, onMinuteElapsed, themeColor }) => {
-  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
+export const Timer = ({ onComplete, onMinuteElapsed, themeColor, unlockAudio }) => {
+  const { timeRemaining, isActive, isPaused, startTimer: originalStartTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
   const isPulsing = isActive && timeRemaining <= 60;
+
+  const startTimer = () => {
+    unlockAudio();
+    originalStartTimer();
+  };
 
   return html`
     <div className="flex flex-col items-center justify-center h-full p-8 bg-stone-900/50 backdrop-blur-md rounded-2xl border-2 neon-border">
