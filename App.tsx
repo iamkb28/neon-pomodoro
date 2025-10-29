@@ -11,7 +11,7 @@ import { THEMES, MOTIVATIONAL_MESSAGES, NOTIFICATION_SOUND } from './constants';
 
 const App: React.FC = () => {
   const [currentTheme, setCurrentTheme] = useState<Theme>(THEMES[0]);
-  const { addCompletedPomodoro, todayMinutes, weeklyTotalMinutes, weeklyChartData } = useStats();
+  const { addFocusMinute, todayMinutes, weeklyTotalMinutes, weeklyChartData } = useStats();
   const playNotificationSound = useSound(NOTIFICATION_SOUND);
   
   const [showToast, setShowToast] = useState(false);
@@ -24,11 +24,14 @@ const App: React.FC = () => {
   }, [currentTheme]);
 
   const handlePomodoroComplete = useCallback(() => {
-    addCompletedPomodoro();
     playNotificationSound();
     setToastMessage(MOTIVATIONAL_MESSAGES[Math.floor(Math.random() * MOTIVATIONAL_MESSAGES.length)]);
     setShowToast(true);
-  }, [addCompletedPomodoro, playNotificationSound]);
+  }, [playNotificationSound]);
+
+  const handleMinuteElapsed = useCallback(() => {
+    addFocusMinute();
+  }, [addFocusMinute]);
   
   const handleToastClose = () => {
     setShowToast(false);
@@ -42,7 +45,7 @@ const App: React.FC = () => {
         
         <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <aside className="lg:col-span-1 h-[85vh] lg:h-[calc(100vh-4rem)]">
-            <Timer onComplete={handlePomodoroComplete} themeColor={currentTheme.primary} />
+            <Timer onComplete={handlePomodoroComplete} onMinuteElapsed={handleMinuteElapsed} themeColor={currentTheme.primary} />
           </aside>
           <section className="lg:col-span-2 h-full">
             <Stats 
