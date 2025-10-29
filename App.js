@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { Timer } from './components/Timer.js';
 import { Stats } from './components/Stats.js';
@@ -12,7 +13,7 @@ import { html } from './utils/htm.js';
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState(THEMES[0]);
   const { addFocusMinute, todayMinutes, weeklyTotalMinutes, weeklyChartData } = useStats();
-  const playNotificationSound = useSound(NOTIFICATION_SOUND);
+  const { playSound: playNotificationSound, unlockAudio } = useSound(NOTIFICATION_SOUND);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -45,7 +46,12 @@ const App = () => {
         
         <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <aside className="lg:col-span-1 h-[85vh] lg:h-[calc(100vh-4rem)]">
-            <${Timer} onComplete=${handlePomodoroComplete} onMinuteElapsed=${handleMinuteElapsed} themeColor=${currentTheme.primary} />
+            <${Timer} 
+              onComplete=${handlePomodoroComplete} 
+              onMinuteElapsed=${handleMinuteElapsed} 
+              themeColor=${currentTheme.primary} 
+              unlockAudio=${unlockAudio}
+            />
           </aside>
           <section className="lg:col-span-2 h-full">
             <${Stats} 
