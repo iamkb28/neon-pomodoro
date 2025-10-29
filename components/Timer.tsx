@@ -4,6 +4,7 @@ import { Button } from './Button';
 
 interface TimerProps {
   onComplete: () => void;
+  onMinuteElapsed: () => void;
   themeColor: string;
 }
 
@@ -13,8 +14,8 @@ const formatTime = (seconds: number): string => {
   return `${mins}:${secs}`;
 };
 
-export const Timer: React.FC<TimerProps> = ({ onComplete, themeColor }) => {
-  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete });
+export const Timer: React.FC<TimerProps> = ({ onComplete, onMinuteElapsed, themeColor }) => {
+  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
   const isPulsing = isActive && timeRemaining <= 60;
 
   return (
