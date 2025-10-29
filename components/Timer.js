@@ -9,8 +9,8 @@ const formatTime = (seconds) => {
   return `${mins}:${secs}`;
 };
 
-export const Timer = ({ onComplete, themeColor }) => {
-  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete });
+export const Timer = ({ onComplete, onMinuteElapsed, themeColor }) => {
+  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
   const isPulsing = isActive && timeRemaining <= 60;
 
   return html`
