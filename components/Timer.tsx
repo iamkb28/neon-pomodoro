@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTimer } from '../hooks/useTimer';
 import { Button } from './Button';
@@ -6,6 +7,7 @@ interface TimerProps {
   onComplete: () => void;
   onMinuteElapsed: () => void;
   themeColor: string;
+  unlockAudio: () => void;
 }
 
 const formatTime = (seconds: number): string => {
@@ -14,9 +16,14 @@ const formatTime = (seconds: number): string => {
   return `${mins}:${secs}`;
 };
 
-export const Timer: React.FC<TimerProps> = ({ onComplete, onMinuteElapsed, themeColor }) => {
-  const { timeRemaining, isActive, isPaused, startTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
+export const Timer: React.FC<TimerProps> = ({ onComplete, onMinuteElapsed, themeColor, unlockAudio }) => {
+  const { timeRemaining, isActive, isPaused, startTimer: originalStartTimer, pauseTimer, resetTimer } = useTimer({ onComplete, onMinuteElapsed });
   const isPulsing = isActive && timeRemaining <= 60;
+
+  const startTimer = () => {
+    unlockAudio();
+    originalStartTimer();
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-full p-8 bg-stone-900/50 backdrop-blur-md rounded-2xl border-2 neon-border">
