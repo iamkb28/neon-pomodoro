@@ -39,4 +39,4 @@ export const MOTIVATIONAL_MESSAGES = [
 ];
 
 // A short, pleasant notification sound encoded in base64
-export const NOTIFICATION_SOUND = 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YV';
+export const NOTIFICATION_SOUND = 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQDb/v8/9f7/Ofj+/Cv6//8p/f//Kf7//yn+///J/v8=';
